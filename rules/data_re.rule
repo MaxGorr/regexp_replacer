@@ -1,0 +1,38 @@
+################
+## CODE STYLE ##
+################
+## Semicolon fix
+p: \s*;
+r: ;
+## "Complex" operators
+p: \s*(::|->)\s*
+r: \1
+## ){ issue
+p: \s+\)\s*\{
+r: )\n{
+## Getter/setter for position
+p: \s*\.\s*position\s*=\s*(.*?);
+r: ->setPosition(\1);
+p: \s*\.\s*position
+r: ->getPosition()
+## children method
+p: ->children\(\)
+r: ->getChildren()
+
+>> init.rule
+
+## for-in cycle
+## for (
+:: for\s*\(
+## SomeClass *
+:: (\w+(?:\s*\*)+)\s*
+## cls in
+:: (\w+)\s+in\s*
+## cnt->call(smth)) {
+p: (.*?)\)(\s*{)
+
+:: CCObject * obj = nullptr;\n
+:: _FOREACH_(\3, obj)\4\n
+r: \1 \2 = (\1)obj;\n
+
+x:

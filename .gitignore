@@ -1,0 +1,11 @@
+.git/
+.gitignore.swp
+.project
+.pydevproject
+.settings/
+
+.swp
+
+# test files
+*.old
+
