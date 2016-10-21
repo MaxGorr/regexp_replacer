@@ -44,9 +44,13 @@ class RegexpReplacer(object):
 
     def feed_data(self, file_name):
         """Load data to replace."""
-        with open(file_name, 'r') as in_file:
-            lines = ''.join(in_file.readlines())
-        print "Rules count:", len(self._rules)
+        lines = ''
+        if file_name != None:
+            with open(file_name, 'r') as in_file:
+                lines = ''.join(in_file.readlines())
+        else:
+            import sys
+            lines = ''.join(sys.stdin.readlines())
         for rule in self._rules:
             lines = rule[0].sub(rule[1], lines)
         return lines
@@ -58,18 +62,21 @@ def _main():
                                      usage='%(prog)s <rules> <path> [--debug]')
     parser.add_argument('rules', metavar='RULES_FILE', type=str, nargs=1,
                         help='File with rules.')
-    parser.add_argument('input', metavar='INPUT_DATA', type=str, nargs=1,
+    parser.add_argument('input', metavar='INPUT_DATA', type=str, nargs='?',
                         help='Input data file.')
     parser.add_argument('--debug', '-d', action='store_true', default=False,
                         help='Prints interpreter result in console.')
     args = parser.parse_args()
+    
     replacer = RegexpReplacer()
     replacer.feed_rules(args.rules[0])
-    result = replacer.feed_data(args.input[0])
-    if args.debug:
+    file_name = args.input
+    
+    result = replacer.feed_data(file_name)
+    if args.debug or file_name == None:
         print result
     else:
-        with open(args.input[0], 'w') as out:
+        with open(file_name, 'w') as out:
             out.write(result)
 
 if __name__ == '__main__':
