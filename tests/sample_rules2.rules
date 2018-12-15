@@ -1,9 +1,0 @@
-## init-method fix
-## Also it is a very long regular expression
-:: (?:cocos2d::)?CCObject\s*\*\s*
-:: ([a-zA-Z_]\w*)::init\(\)
-:: (\s*\{\s*)
-:: if\s*\(+this\s*=\s*__SUPER_CLASS__::init\(\)\)+
-:: (\s*\{\s*(?:\n|.)*?)
-p: \}\s*return this;(\s*\})
-r: bool \1::init()\2if (__SUPER_CLASS__::init())\3return true;}\nreturn false;\4

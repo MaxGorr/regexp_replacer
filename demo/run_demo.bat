@@ -2,7 +2,7 @@
 
 pushd %~dp0
 
-set TEST_FILE=test.m
+set TEST_FILE=test_data.m
 
 echo #####################
 echo ## Initial content ##
@@ -13,6 +13,6 @@ echo.
 echo ######################
 echo ## Modified content ##
 echo ######################
-python ..\rer_engine.py --debug sample_rules.rules %TEST_FILE%
+python -m regexp_replacer --debug %~dp0rules\main.md %TEST_FILE%
 
 popd
