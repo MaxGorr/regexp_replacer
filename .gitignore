@@ -1,11 +1,8 @@
-.git/
-.gitignore.swp
-.project
-.pydevproject
-.settings/
+venv/
 
-.swp
+*.pyc
 
-# test files
-*.old
-
+# Temporary files
+*~
+*.swp
+.DS_Store

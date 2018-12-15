@@ -1,10 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """Regular expression replacer engine."""
 
-import os
-import re
+import os, re
 
 class RegexpReplacer(object):
     """Regular expression replacer."""
@@ -14,7 +13,7 @@ class RegexpReplacer(object):
     def feed_rules(self, file_name, add=False):
         """Loads rules for replacing."""
         if not add and len(self._rules) > 0:
-            print "Release!"
+            print("Release!")
             del self._rules
             self._rules = []
         with open(str(file_name), 'r') as in_file:
@@ -54,30 +53,3 @@ class RegexpReplacer(object):
         for rule in self._rules:
             lines = rule[0].sub(rule[1], lines)
         return lines
-
-def _main():
-    """Script entry point."""
-    import argparse
-    parser = argparse.ArgumentParser(description='Regular expression replacer.',
-                                     usage='%(prog)s <rules> <path> [--debug]')
-    parser.add_argument('rules', metavar='RULES_FILE', type=str, nargs=1,
-                        help='File with rules.')
-    parser.add_argument('input', metavar='INPUT_DATA', type=str, nargs='?',
-                        help='Input data file.')
-    parser.add_argument('--debug', '-d', action='store_true', default=False,
-                        help='Prints interpreter result in console.')
-    args = parser.parse_args()
-    
-    replacer = RegexpReplacer()
-    replacer.feed_rules(args.rules[0])
-    file_name = args.input
-    
-    result = replacer.feed_data(file_name)
-    if args.debug or file_name == None:
-        print result
-    else:
-        with open(file_name, 'w') as out:
-            out.write(result)
-
-if __name__ == '__main__':
-    _main()
