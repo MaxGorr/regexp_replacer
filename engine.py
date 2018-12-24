@@ -16,7 +16,7 @@ class RegexpReplacer(object):
             print("Release!")
             del self._rules
             self._rules = []
-        with open(str(file_name), 'r') as in_file:
+        with open(str(file_name), mode='r', encoding='utf-8') as in_file:
             lines = in_file.readlines()
             tmp = ''
             for line in lines:
@@ -45,7 +45,7 @@ class RegexpReplacer(object):
         """Load data to replace."""
         lines = ''
         if file_name != None:
-            with open(file_name, 'r') as in_file:
+            with open(file_name, mode='r', encoding='utf-8') as in_file:
                 lines = ''.join(in_file.readlines())
         else:
             import sys

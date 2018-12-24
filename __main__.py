@@ -28,5 +28,5 @@ result = replacer.feed_data(file_name)
 if args.debug or file_name == None:
     print(result)
 else:
-    with open(file_name, 'w') as out:
+    with open(file_name, mode='w', encoding='utf-8') as out:
         out.write(result)
