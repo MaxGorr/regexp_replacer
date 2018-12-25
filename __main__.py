@@ -10,21 +10,26 @@ parser = ArgumentParser(
     description='Regular expression replacer.',
     prog='python -m regexp_replacer')
 parser.add_argument(
-    'rules', metavar='RULES_FILE', type=str, nargs=1,
+    '-r', '--rules', metavar='RULES_FILE', nargs=1, required=True,
     help='File with rules.')
+input_group = parser.add_mutually_exclusive_group(required=True)
+input_group.add_argument(
+    '-f', '--file', metavar='INPUT_FILE', nargs=1,
+    help='Read data from file.')
+input_group.add_argument(
+    '-s', '--stdin', action='store_true',
+    help='Read data from stdin')
 parser.add_argument(
-    'input', metavar='INPUT_DATA', type=str, nargs='?',
-    help='Input data file.')
-parser.add_argument(
-    '--debug', '-d', action='store_true', default=False,
+    '-d', '--debug', action='store_true',
     help='print result in console')
-args = parser.parse_args()
 
+args = parser.parse_args()
 replacer = RegexpReplacer()
 replacer.feed_rules(args.rules[0])
-file_name = args.input
 
+file_name = None if args.stdin else args.file[0]
 result = replacer.feed_data(file_name)
+
 if args.debug or file_name == None:
     print(result)
 else:

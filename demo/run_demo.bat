@@ -13,6 +13,6 @@ echo.
 echo ######################
 echo ## Modified content ##
 echo ######################
-python -m regexp_replacer --debug %~dp0rules\main.md %TEST_FILE%
+python -m regexp_replacer --debug --rules %~dp0rules\main.md --file %TEST_FILE%
 
 popd
