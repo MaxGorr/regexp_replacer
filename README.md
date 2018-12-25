@@ -6,12 +6,12 @@ Sometimes it is necessary to process a set of text files and sometimes it is con
 
 Apply rules for concrete file:
 ```
-python -m regexp_replacer special.rules edited.file
+python -m regexp_replacer -r special.rules -f edited.file
 ```
 
 Pipe usage:
 ```
-cat some_file | python -m regexp_replacer some.rules | another_command
+cat some_file | python -m regexp_replacer -r some.rules -s | another_command
 ```
 
 # Rules
