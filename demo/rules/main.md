@@ -1,8 +1,10 @@
 # Sample file with rules
 
 ## Method fix
+
 Example:
-```
+
+```cpp
 // from
 -(void) method
 
@@ -11,7 +13,8 @@ void __CLASS__::method()
 ```
 
 Rule:
-```
+
+```plain
 p: -\((.*?)\)\s+(\w*)
 r: \1 __CLASS__::\2()
 ```
@@ -19,7 +22,8 @@ r: \1 __CLASS__::\2()
 ## String rules
 
 Example:
-```
+
+```cpp
 // from
 @"Format string example: %@"
 
@@ -28,7 +32,8 @@ Example:
 ```
 
 Rules:
-```
+
+```plain
 p: %@
 r: %s
 
@@ -37,7 +42,8 @@ r: "
 ```
 
 ## Simple rules
-```
+
+```plain
 p: @(implementation|end)
 r: //@\1
 
@@ -57,19 +63,23 @@ r: #include
 ## init-method patch
 
 Load rules from other files:
-```
+
+```plain
 >> additional_1.md
 >> additional_2.md
 ```
 
 ## Forced exit and unused rules
 
-Exit here
-```
+Exit here:
+
+```plain
 x:
 ```
+
 Remained rules are ignored:
-```
+
+```plain
 p: for
 r: FOREACH
 

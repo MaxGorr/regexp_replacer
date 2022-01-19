@@ -1,33 +1,43 @@
 # Idea
 
-Sometimes it is necessary to process a set of text files and sometimes it is convenient to use regular expressions for this purpose. And moreover it would be convenient to store regexp sets for repeating tasks. To solve these problems it is necessary to reinvent **awk** or **sed** (_use them instead of this tool_)!
+Sometimes it is necessary to process a set of text files with regular
+expressions. Also it is convenient to keep them for repeating tasks. There are
+a lot of old good tools like **awk** or **sed**. But this one:
 
-# Usage
+- is very simple,
+- uses Python's regular expressions.
+
+## Usage
 
 Apply rules for concrete file:
-```
+
+```bash
 python -m regexp_replacer -r special.rules -f edited.file
 ```
 
 Pipe usage:
-```
+
+```bash
 cat some_file | python -m regexp_replacer -r some.rules -s | another_command
 ```
 
-# Rules
+## Rules
 
 Line for pattern regexp:
-```
+
+```plain
 p: python_regex_pattern
 ```
 
 Line for replacement regexp:
-```
+
+```plain
 r: some_replacement
 ```
 
 It is possible to split long regexps:
-```
+
+```plain
 :: very very very
 :: very very very
 :: very very very
@@ -35,12 +45,14 @@ p: long regexp
 ```
 
 To load another rules file from the current one:
-```
+
+```plain
 >> another_file.rules
 ```
 
 To interrupt current file loading use this command:
-```
+
+```plain
 p: pattern
 r: replacement
 
@@ -51,7 +63,8 @@ r: ignored_replacement
 ```
 
 Other lines are ignored, therefore it is possible to use them as documentation:
-```
+
+```plain
 ## ignored
 // also ignored
 This line will not be processed
@@ -61,4 +74,5 @@ This line will not be processed
 -- And so on...
 ```
 
-It is not an obligatory but sometimes convenient to perform rules as Markdown files.
+One more tip: to perform rules as Markdown files is a good idea. It increases
+their readability in the repository's web-interfaces.

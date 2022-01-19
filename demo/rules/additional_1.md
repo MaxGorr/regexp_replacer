@@ -2,8 +2,9 @@
 
 ## Alloc to constructor
 
-Еxample:
-```
+Example:
+
+```cpp
 // from
 CCObject * SomeClass::alloc()
 void SomeClass::dealloc()
@@ -14,7 +15,8 @@ SomeClass::~SomeClass()
 ```
 
 Rules:
-```
+
+```cpp
 p: (?:cocos2d::)?CCObject\s*\*\s*(\w+)::alloc\(\)
 r: \1::\1()
 
@@ -28,7 +30,8 @@ r: //\1
 ## init-method fix
 
 Example:
-```
+
+```cpp
 // from
 CCObject * SomeClass::init()
 {
@@ -52,7 +55,8 @@ bool SomeClass::init()
 ```
 
 Rule:
-```
+
+```plain
 :: (?:cocos2d::)?CCObject\s*\*\s*
 :: ([a-zA-Z_]\w*)::init\(\)
 :: (\s*\{\s*)
@@ -62,11 +66,11 @@ p: \}\s*return this;(\s*\})
 r: bool \1::init()\2if (__SUPER_CLASS__::init())\3return true;}\nreturn false;\4
 ```
 
-
 ## alloc + init method fix
 
 Example:
-```
+
+```cpp
 // from
 SomeClass *object = SomeClass::alloc()->init()
 
@@ -75,7 +79,8 @@ SomeClass *object = SomeClass::create()
 ```
 
 Rule:
-```
+
+```plain
 :: (\w*)(\s*\*)+\s*(\w*)
 p: \s*=\s*\1::alloc\(\)->init\(\)
 r: \1 2\3 = \1::create()
@@ -84,7 +89,8 @@ r: \1 2\3 = \1::create()
 ## autorelease/retain fix
 
 Example:
-```
+
+```cpp
 // from
 SomeClass *object = SomeClass::createWithArgs(a, b)->autorelease()
 
@@ -94,7 +100,8 @@ object->autorelease()
 ```
 
 Rule:
-```
+
+```plain
 :: (\w*)(\s*\*)+\s*(\w*)
 p: \s*=\s*(.*?)(->(?:autorelease|retian)\(\))
 r: \1 \2\3 = \4;\n\3\5

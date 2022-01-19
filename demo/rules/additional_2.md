@@ -1,7 +1,8 @@
 # Code style rules
 
 ## Getter/setter for position
-```
+
+```plain
 p: \s*\.\s*position\s*=\s*(.*?);
 r: ->setPosition(\1);
 
@@ -10,7 +11,8 @@ r: ->getPosition()
 ```
 
 ## children method
-```
+
+```plain
 p: ->children\(\)
 r: ->getChildren()
 ```
@@ -18,18 +20,20 @@ r: ->getChildren()
 ## for-cycle
 
 Example:
-```
+
+```cpp
 // from
-for (SomeClass *cls in cnt->call(smth)) {
+for (SomeClass *cls in container->call(smth)) {
 
 // to
 CCObject * obj = nullptr;
-_FOREACH_(cnt->call(smth), obj) {
+_FOREACH_(container->call(smth), obj) {
 SomeClass *cls = (SomeClass *)obj;
 ```
 
 Rule:
-```
+
+```plain
 :: for\s*\(
 :: (\w+(?:\s*\*)+)\s*
 :: (\w+)\s+in\s*
